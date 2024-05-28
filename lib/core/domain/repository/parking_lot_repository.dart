@@ -4,4 +4,5 @@ import 'package:fpdart/fpdart.dart';
 
 abstract interface class ParkingLotRepository {
   Future<Either<Failure, List<ParkingLot>>> fetchParkingLots();
+  Future<Either<Failure, bool>> saveParkinglotLabel(bool isRight);
 }

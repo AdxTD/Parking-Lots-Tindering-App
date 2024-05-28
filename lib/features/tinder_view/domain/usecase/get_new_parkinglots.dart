@@ -1,4 +1,4 @@
-import 'package:fpdart/src/either.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:parking_lots_rating/core/data/models/parking_lot.dart';
 import 'package:parking_lots_rating/core/domain/usecase/usecase.dart';
 import 'package:parking_lots_rating/core/error/failures.dart';

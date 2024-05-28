@@ -22,4 +22,9 @@ class FakeParkingLotRepository implements ParkingLotRepository {
       // Add more fake parking lots here
     ]);
   }
+
+  @override
+  Future<Either<Failure, bool>> saveParkinglotLabel(bool isRight) async {
+    return right(true);
+  }
 }
