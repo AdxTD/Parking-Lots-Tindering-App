@@ -12,7 +12,7 @@ part 'tinder_view_state.dart';
 class TinderViewBloc extends Bloc<TinderViewEvent, TinderViewState> {
   final GetNewParkinglots _getNewParkinglots;
   final SaveUserDecision _saveUserDecision;
-  List<ParkingLot> currentParkinglots = List.empty();
+  List<ParkingLot> currentParkinglots = [];
   int currentDisplayedIndex = 0;
 
   TinderViewBloc(

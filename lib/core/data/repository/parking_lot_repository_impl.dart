@@ -10,7 +10,7 @@ class FakeParkingLotRepository implements ParkingLotRepository {
     // For now, return the fake list you mentioned
     return right([
       ParkingLot(
-        imageUrl: '...',
+        imageUrl: 'URL',
         name: '...',
         address: '...',
         status: '...',
