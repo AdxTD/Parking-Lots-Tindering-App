@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:parking_lots_rating/core/data/repository/parking_lot_repository_impl.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:parking_lots_rating/core/data/datasources/remote_data_source.dart';
+import 'package:parking_lots_rating/core/data/repository/parkinglot_repository_impl.dart';
 import 'package:parking_lots_rating/features/tinder_view/domain/usecase/get_new_parkinglots.dart';
 import 'package:parking_lots_rating/features/tinder_view/domain/usecase/save_user_decision.dart';
 import 'package:parking_lots_rating/features/tinder_view/presentation/bloc/tinder_view_bloc.dart';
@@ -35,11 +37,23 @@ class _TinderViewPageState extends State<TinderViewPage>
       end: const Offset(-1.0, 0.0),
     ).animate(_animationController);
 
+    final HttpLink httpLink = HttpLink(
+      'https://interview-apixx07.dev.park-depot.de/',
+    );
+
+    final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
+      GraphQLClient(
+        cache: GraphQLCache(),
+        link: httpLink,
+      ),
+    );
+
+    final RemoteDataSource remoteDataSource = RemoteDataSource(client.value);
+    final ParkingLotRepositorImpl repositorImpl =
+        ParkingLotRepositorImpl(remoteDataSource);
     _bloc = TinderViewBloc(
-      getNewParkinglots:
-          GetNewParkinglots(repository: FakeParkingLotRepository()),
-      saveUserDecision:
-          SaveUserDecision(repository: FakeParkingLotRepository()),
+      getNewParkinglots: GetNewParkinglots(repository: repositorImpl),
+      saveUserDecision: SaveUserDecision(repository: repositorImpl),
     );
     _bloc.add(ParkinglotGetInitial());
   }

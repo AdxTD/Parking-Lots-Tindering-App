@@ -24,7 +24,7 @@ class ParkinglotCard extends StatelessWidget {
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(10.0)),
               child: Image.network(
-                parkingLot.image,
+                parkingLot.image ?? "",
                 fit: BoxFit.cover,
               ),
             ),

@@ -11,6 +11,6 @@ class GetNewParkinglots implements UseCase<List<ParkingLot>, NoParams> {
 
   @override
   Future<Either<Failure, List<ParkingLot>>> call(NoParams params) async {
-    return repository.fetchParkingLots();
+    return await repository.fetchParkingLots();
   }
 }

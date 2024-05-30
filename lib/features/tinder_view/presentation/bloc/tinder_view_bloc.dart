@@ -21,14 +21,18 @@ class TinderViewBloc extends Bloc<TinderViewEvent, TinderViewState> {
       : _getNewParkinglots = getNewParkinglots,
         _saveUserDecision = saveUserDecision,
         super(TinderViewInitial()) {
-    on<TinderViewEvent>((event, emit) => emit(ParkinglotLoading()));
+    on<TinderViewEvent>((_, emit) => emit(ParkinglotLoading()));
     on<ParkinglotGetInitial>(_onParkinglotInitial);
     on<ParkinglotGetNext>(_onParkinglotNext);
   }
 
   void _onParkinglotInitial(
       ParkinglotGetInitial event, Emitter<TinderViewState> emit) async {
-    _updateCurrentParkinglots(emit);
+    final res = await _getNewParkinglots(NoParams());
+    res.fold((l) => emit(ParkinglotFailure(l.message)), (r) {
+      currentParkinglots.addAll(r);
+      emit(ParkingLotDisplaySuccess(currentParkinglots[currentDisplayedIndex]));
+    });
   }
 
   void _onParkinglotNext(
@@ -40,15 +44,12 @@ class TinderViewBloc extends Bloc<TinderViewEvent, TinderViewState> {
     } else {
       currentDisplayedIndex = 0;
       currentParkinglots.clear();
-      _updateCurrentParkinglots(emit);
+      final res = await _getNewParkinglots(NoParams());
+      res.fold((l) => emit(ParkinglotFailure(l.message)), (r) {
+        currentParkinglots.addAll(r);
+        emit(ParkingLotDisplaySuccess(
+            currentParkinglots[currentDisplayedIndex]));
+      });
     }
-  }
-
-  void _updateCurrentParkinglots(Emitter<TinderViewState> emit) async {
-    final res = await _getNewParkinglots(NoParams());
-    res.fold((l) => emit(ParkinglotFailure(l.message)), (r) {
-      currentParkinglots.addAll(r);
-      emit(ParkingLotDisplaySuccess(currentParkinglots[currentDisplayedIndex]));
-    });
   }
 }

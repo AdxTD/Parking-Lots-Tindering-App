@@ -6,8 +6,6 @@ import 'package:fpdart/fpdart.dart';
 class FakeParkingLotRepository implements ParkingLotRepository {
   @override
   Future<Either<Failure, List<ParkingLot>>> fetchParkingLots() async {
-    // Replace this with your actual API call to fetch parking lots
-    // For now, return the fake list you mentioned
     return right([
       ParkingLot(
         image:
@@ -20,7 +18,6 @@ class FakeParkingLotRepository implements ParkingLotRepository {
         type: 'Underground',
         size: 3,
       ),
-      // Add more fake parking lots here
     ]);
   }
 

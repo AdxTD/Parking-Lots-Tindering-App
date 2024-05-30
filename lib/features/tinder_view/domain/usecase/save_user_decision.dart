@@ -9,7 +9,7 @@ class SaveUserDecision implements UseCase<bool, bool> {
   SaveUserDecision({required this.repository});
 
   @override
-  Future<Either<Failure, bool>> call(bool isRight) async {
-    return repository.saveParkinglotLabel(isRight);
+  Future<Either<Failure, bool>> call(bool label) async {
+    return repository.saveParkinglotLabel(label);
   }
 }
