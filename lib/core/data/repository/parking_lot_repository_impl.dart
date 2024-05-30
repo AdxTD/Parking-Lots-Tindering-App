@@ -10,14 +10,15 @@ class FakeParkingLotRepository implements ParkingLotRepository {
     // For now, return the fake list you mentioned
     return right([
       ParkingLot(
-        imageUrl: 'URL',
-        name: '...',
-        address: '...',
-        status: '...',
-        id: '...',
-        liveData: '...',
-        type: '...',
-        size: 0,
+        image:
+            'https://images.freeimages.com/images/large-previews/e8e/underground-parking-1206464.jpg',
+        name: 'Munich',
+        address: 'Munich - Main Str',
+        status: 'Available',
+        id: '1ee8x',
+        liveDate: '25-5-2024',
+        type: 'Underground',
+        size: 3,
       ),
       // Add more fake parking lots here
     ]);
