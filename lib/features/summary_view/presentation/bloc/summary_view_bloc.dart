@@ -16,19 +16,25 @@ class SummaryViewBloc extends Bloc<SummaryViewEvent, SummaryViewState> {
       : _getLabeledParkinglots = getLabeledParkinglots,
         super(SummaryInitial()) {
     on<SummaryViewEvent>((_, emit) => emit(SummaryLoading()));
-    on<FetchGroupedSortedLots>((event, emit) => _onFetchParkinglots);
-    on<FilterParkinglots>((event, emit) => _onFilterParkingLots);
+    on<FetchGroupedSortedLots>(_onFetchParkinglots);
+    on<FilterParkinglots>(_onFilterParkingLots);
   }
 
   _onFetchParkinglots(
-      FetchGroupedSortedLots event, Emitter<SummaryViewState> emit) async {
+    FetchGroupedSortedLots event,
+    Emitter<SummaryViewState> emit,
+  ) async {
     final res = await _getLabeledParkinglots(NoParams());
-    res.fold((l) => emit(SummaryError(l.message)),
-        (lots) => emit(SummarySuccess(lots)));
+    res.fold((l) => emit(SummaryError(l.message)), (lots) {
+      allLots.addAll(lots);
+      emit(SummarySuccess(lots));
+    });
   }
 
   _onFilterParkingLots(
-      FilterParkinglots event, Emitter<SummaryViewState> emit) async {
+    FilterParkinglots event,
+    Emitter<SummaryViewState> emit,
+  ) async {
     try {
       List<ParkingLot> filteredLots = allLots.where((lot) {
         if (event.showTrueLabelLots && lot.label!) {

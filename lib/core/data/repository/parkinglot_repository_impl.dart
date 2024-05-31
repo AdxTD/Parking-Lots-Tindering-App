@@ -8,7 +8,7 @@ import 'package:parking_lots_rating/core/error/exceptions.dart'
     as core_exceptions;
 
 class ParkingLotRepositorImpl implements ParkingLotRepository {
-  final RemoteDataSource remoteDataSource;
+  final RemoteParkinglotsDataSourceInterface remoteDataSource;
   int _currentOffset = 0;
   int _latestLabeledIndex = 0;
   List<ParkingLot> lotsToLabel = [];
@@ -45,6 +45,9 @@ class ParkingLotRepositorImpl implements ParkingLotRepository {
   }
 
   List<ParkingLot> _groupAndSortLabeledLots() {
+    while (lotsToLabel.last.label == null) {
+      lotsToLabel.removeLast();
+    }
     lotsToLabel.sort((a, b) => a.name.compareTo(b.name));
     final List<ParkingLot> trueLabelLots =
         lotsToLabel.where((lot) => lot.label == true).toList();

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:parking_lots_rating/features/tinder_view/presentation/pages/tinder_view_page.dart';
+import 'package:parking_lots_rating/init_dependencies.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initDependencies();
   runApp(const MyApp());
 }
 

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:parking_lots_rating/core/data/datasources/remote_data_source.dart';
-import 'package:parking_lots_rating/core/data/repository/parkinglot_repository_impl.dart';
-import 'package:parking_lots_rating/features/tinder_view/domain/usecase/get_new_parkinglots.dart';
-import 'package:parking_lots_rating/features/tinder_view/domain/usecase/save_user_decision.dart';
+import 'package:parking_lots_rating/features/summary_view/presentation/pages/summary_view_page.dart';
 import 'package:parking_lots_rating/features/tinder_view/presentation/bloc/tinder_view_bloc.dart';
 import 'package:parking_lots_rating/features/tinder_view/presentation/widgets/parkinglot_card.dart';
+import 'package:parking_lots_rating/init_dependencies.dart';
 
 class TinderViewPage extends StatefulWidget {
   const TinderViewPage({super.key});
@@ -37,23 +34,9 @@ class _TinderViewPageState extends State<TinderViewPage>
       end: const Offset(-1.0, 0.0),
     ).animate(_animationController);
 
-    final HttpLink httpLink = HttpLink(
-      'https://interview-apixx07.dev.park-depot.de/',
-    );
-
-    final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
-      GraphQLClient(
-        cache: GraphQLCache(),
-        link: httpLink,
-      ),
-    );
-
-    final RemoteDataSource remoteDataSource = RemoteDataSource(client.value);
-    final ParkingLotRepositorImpl repositorImpl =
-        ParkingLotRepositorImpl(remoteDataSource);
     _bloc = TinderViewBloc(
-      getNewParkinglots: GetNewParkinglots(repository: repositorImpl),
-      saveUserDecision: SaveUserDecision(repository: repositorImpl),
+      getNewParkinglots: serviceLocator(),
+      saveUserDecision: serviceLocator(),
     );
     _bloc.add(ParkinglotGetInitial());
   }
@@ -70,6 +53,14 @@ class _TinderViewPageState extends State<TinderViewPage>
       _bloc.add(const ParkinglotGetNext(true));
       _animationController.reset();
     });
+  }
+
+  void _goToSummaryPage() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      SummaryViewPage.route(),
+      (route) => false,
+    );
   }
 
   @override
@@ -110,11 +101,19 @@ class _TinderViewPageState extends State<TinderViewPage>
                           FloatingActionButton(
                             onPressed: _swipeLeft,
                             backgroundColor: Colors.red,
+                            heroTag: "Left",
                             child: const Icon(Icons.close),
+                          ),
+                          FloatingActionButton(
+                            onPressed: _goToSummaryPage,
+                            backgroundColor: Colors.blue,
+                            heroTag: "Summary",
+                            child: const Icon(Icons.summarize_outlined),
                           ),
                           FloatingActionButton(
                             onPressed: _swipeRight,
                             backgroundColor: Colors.green,
+                            heroTag: "Right",
                             child: const Icon(Icons.check),
                           ),
                         ],

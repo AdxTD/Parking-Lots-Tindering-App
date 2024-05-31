@@ -10,7 +10,10 @@ class ParkinglotSummaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Image.network(lot.image ?? ""),
+        leading: Image.network(
+          lot.image ?? "",
+          fit: BoxFit.cover,
+        ),
         title: Text(lot.name),
         subtitle: Text(lot.address),
         trailing: Text(lot.liveDate ?? ""),

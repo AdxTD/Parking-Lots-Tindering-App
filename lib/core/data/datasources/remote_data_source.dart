@@ -3,11 +3,17 @@ import 'package:parking_lots_rating/core/data/models/parking_lot.dart';
 import 'package:parking_lots_rating/core/error/exceptions.dart'
     as core_exceptions;
 
-class RemoteDataSource {
+abstract interface class RemoteParkinglotsDataSourceInterface {
+  Future<List<ParkingLot>> fetchData(int limit, int offset);
+}
+
+class RemoteParkinglotsDataSource
+    implements RemoteParkinglotsDataSourceInterface {
   final GraphQLClient _client;
 
-  RemoteDataSource(this._client);
+  RemoteParkinglotsDataSource(this._client);
 
+  @override
   Future<List<ParkingLot>> fetchData(int limit, int offset) async {
     final query = gql("""
 query {
