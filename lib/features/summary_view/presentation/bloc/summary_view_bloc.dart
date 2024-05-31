@@ -11,6 +11,8 @@ part 'summary_view_event.dart';
 class SummaryViewBloc extends Bloc<SummaryViewEvent, SummaryViewState> {
   final GetLabeledParkinglots _getLabeledParkinglots;
   List<ParkingLot> allLots = [];
+  bool isGoodLotsDisplayed = true;
+  bool isBadLotsDisplayed = true;
 
   SummaryViewBloc({required GetLabeledParkinglots getLabeledParkinglots})
       : _getLabeledParkinglots = getLabeledParkinglots,
@@ -35,11 +37,17 @@ class SummaryViewBloc extends Bloc<SummaryViewEvent, SummaryViewState> {
     FilterParkinglots event,
     Emitter<SummaryViewState> emit,
   ) async {
+    if (event.showTrueLabelLots != null) {
+      isGoodLotsDisplayed = event.showTrueLabelLots!;
+    }
+    if (event.showFalseLabelLots != null) {
+      isBadLotsDisplayed = event.showFalseLabelLots!;
+    }
     try {
       List<ParkingLot> filteredLots = allLots.where((lot) {
-        if (event.showTrueLabelLots && lot.label!) {
+        if (isGoodLotsDisplayed && lot.label!) {
           return true;
-        } else if (event.showFalseLabelLots && !lot.label!) {
+        } else if (isBadLotsDisplayed && !lot.label!) {
           return true;
         }
         return false;

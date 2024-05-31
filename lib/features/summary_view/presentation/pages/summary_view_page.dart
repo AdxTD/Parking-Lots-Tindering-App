@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parking_lots_rating/features/summary_view/presentation/bloc/summary_view_bloc.dart';
 import 'package:parking_lots_rating/features/summary_view/presentation/widgets/filter_checkbox.dart';
 import 'package:parking_lots_rating/features/summary_view/presentation/widgets/parkinglot_summary_card.dart';
-import 'package:parking_lots_rating/features/tinder_view/presentation/widgets/parkinglot_card.dart';
 import 'package:parking_lots_rating/init_dependencies.dart';
 
 class SummaryViewPage extends StatefulWidget {
@@ -60,8 +59,7 @@ class _SummaryViewPageState extends State<SummaryViewPage> {
                         initialValue: true,
                         onChanged: (value) {
                           _bloc.add(FilterParkinglots(
-                            showTrueLabelLots: value!,
-                            showFalseLabelLots: true,
+                            showTrueLabelLots: value,
                           ));
                         },
                       ),
@@ -70,8 +68,7 @@ class _SummaryViewPageState extends State<SummaryViewPage> {
                         initialValue: true,
                         onChanged: (value) {
                           _bloc.add(FilterParkinglots(
-                            showTrueLabelLots: true,
-                            showFalseLabelLots: value!,
+                            showFalseLabelLots: value,
                           ));
                         },
                       ),

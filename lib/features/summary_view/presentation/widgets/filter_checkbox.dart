@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class FilterCheckbox extends StatelessWidget {
+class FilterCheckbox extends StatefulWidget {
   final String label;
   final bool initialValue;
-  final ValueSetter<bool?> onChanged;
+  final ValueSetter<bool>? onChanged;
 
   const FilterCheckbox(
       {required this.label,
@@ -12,14 +12,32 @@ class FilterCheckbox extends StatelessWidget {
       super.key});
 
   @override
+  State<FilterCheckbox> createState() => _FilterCheckboxState();
+}
+
+class _FilterCheckboxState extends State<FilterCheckbox> {
+  late bool currentValue;
+
+  @override
+  void initState() {
+    super.initState();
+    currentValue = widget.initialValue;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Checkbox(
-          value: initialValue,
-          onChanged: (value) => onChanged(value),
+          value: currentValue,
+          onChanged: (value) {
+            setState(() {
+              currentValue = value ?? false;
+            });
+            widget.onChanged?.call(currentValue);
+          },
         ),
-        Text(label),
+        Text(widget.label),
       ],
     );
   }

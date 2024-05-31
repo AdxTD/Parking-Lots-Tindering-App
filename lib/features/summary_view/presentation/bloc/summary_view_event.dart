@@ -8,11 +8,11 @@ sealed class SummaryViewEvent {
 class FetchGroupedSortedLots extends SummaryViewEvent {}
 
 class FilterParkinglots extends SummaryViewEvent {
-  final bool showTrueLabelLots;
-  final bool showFalseLabelLots;
+  final bool? showTrueLabelLots;
+  final bool? showFalseLabelLots;
 
   const FilterParkinglots({
-    required this.showTrueLabelLots,
-    required this.showFalseLabelLots,
+    this.showTrueLabelLots,
+    this.showFalseLabelLots,
   });
 }
