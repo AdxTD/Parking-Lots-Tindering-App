@@ -42,12 +42,91 @@ class ParkinglotCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4.0),
-                Text(
-                  '${parkingLot.address}, ${parkingLot.liveDate},',
-                  style: const TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey,
-                  ),
+                Row(
+                  children: [
+                    const Text(
+                      'Address:  ',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    Text(
+                      parkingLot.address,
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.blueGrey,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4.0),
+                Row(
+                  children: [
+                    const Text(
+                      'Live date:   ',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    Text(
+                      parkingLot.liveDate ?? "Unknown",
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.blueGrey,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4.0),
+                Row(
+                  children: [
+                    const Text(
+                      'Size:  ',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    Text(
+                      '${parkingLot.size}',
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.blueGrey,
+                      ),
+                    ),
+                    const SizedBox(width: 20.0),
+                    const Text(
+                      'Type:  ',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    Text(
+                      parkingLot.type,
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.blueGrey,
+                      ),
+                    ),
+                    const SizedBox(width: 20.0),
+                    const Text(
+                      'Status:  ',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    Text(
+                      parkingLot.status,
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.blueGrey,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

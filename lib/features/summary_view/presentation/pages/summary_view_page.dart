@@ -104,7 +104,10 @@ class _SummaryViewPageState extends State<SummaryViewPage> {
             );
           } else if (state is SummaryError) {
             return Center(
-              child: Text(state.message),
+              child: Text(
+                state.message,
+                style: const TextStyle(fontSize: 18),
+              ),
             );
           }
           return Container();

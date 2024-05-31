@@ -37,8 +37,8 @@ class ParkingLotRepositorImpl implements ParkingLotRepository {
 
   @override
   Future<Either<Failure, List<ParkingLot>>> getLabeledParkinglots() async {
-    if (lotsToLabel.isEmpty) {
-      return left(Failure("There are currently no labeled content!"));
+    if (lotsToLabel.first.label == null) {
+      return left(Failure("There are currently no labeled lots!"));
     }
     final groupedSortLots = _groupAndSortLabeledLots();
     return right(groupedSortLots);
