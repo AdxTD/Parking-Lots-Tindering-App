@@ -28,12 +28,10 @@ class _TinderViewPageState extends State<TinderViewPage>
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-
     _slideAnimation = Tween<Offset>(
       begin: Offset.zero,
-      end: const Offset(-1.0, 0.0),
+      end: const Offset(0.0, 0.0),
     ).animate(_animationController);
-
     _bloc = TinderViewBloc(
       getNewParkinglots: serviceLocator(),
       saveUserDecision: serviceLocator(),
@@ -42,6 +40,10 @@ class _TinderViewPageState extends State<TinderViewPage>
   }
 
   void _swipeLeft() {
+    _slideAnimation = Tween<Offset>(
+      begin: Offset.zero,
+      end: const Offset(-1.0, 0.0),
+    ).animate(_animationController);
     _animationController.forward().then((value) {
       _bloc.add(const ParkinglotGetNext(false));
       _animationController.reset();
@@ -49,6 +51,10 @@ class _TinderViewPageState extends State<TinderViewPage>
   }
 
   void _swipeRight() {
+    _slideAnimation = Tween<Offset>(
+      begin: Offset.zero,
+      end: const Offset(1.0, 0.0),
+    ).animate(_animationController);
     _animationController.forward().then((value) {
       _bloc.add(const ParkinglotGetNext(true));
       _animationController.reset();
