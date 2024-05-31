@@ -25,4 +25,10 @@ class FakeParkingLotRepository implements ParkingLotRepository {
   Future<Either<Failure, bool>> saveParkinglotLabel(bool isRight) async {
     return right(true);
   }
+
+  @override
+  Future<Either<Failure, List<ParkingLot>>> getLabeledParkinglots() {
+    // TODO: implement getLabeledParkinglots
+    throw UnimplementedError();
+  }
 }

@@ -35,7 +35,7 @@ class ParkinglotCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  parkingLot.name ?? "Name",
+                  parkingLot.name,
                   style: const TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,

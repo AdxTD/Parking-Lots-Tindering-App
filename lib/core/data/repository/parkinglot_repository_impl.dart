@@ -34,4 +34,27 @@ class ParkingLotRepositorImpl implements ParkingLotRepository {
     _latestLabeledIndex++;
     return right(true);
   }
+
+  @override
+  Future<Either<Failure, List<ParkingLot>>> getLabeledParkinglots() async {
+    if (lotsToLabel.isEmpty) {
+      return left(Failure("There are currently no labeled content!"));
+    }
+    final groupedSortLots = _groupAndSortLabeledLots();
+    return right(groupedSortLots);
+  }
+
+  List<ParkingLot> _groupAndSortLabeledLots() {
+    lotsToLabel.sort((a, b) => a.name.compareTo(b.name));
+    final List<ParkingLot> trueLabelLots =
+        lotsToLabel.where((lot) => lot.label == true).toList();
+    final List<ParkingLot> falseLabelLots =
+        lotsToLabel.where((lot) => lot.label == false).toList();
+
+    final List<ParkingLot> groupedLots = [];
+    groupedLots.addAll(trueLabelLots);
+    groupedLots.addAll(falseLabelLots);
+
+    return groupedLots;
+  }
 }
