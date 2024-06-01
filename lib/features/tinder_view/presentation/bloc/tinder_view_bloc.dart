@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:parking_lots_rating/core/data/models/parking_lot.dart';
-import 'package:parking_lots_rating/core/domain/usecase/usecase.dart';
 import 'package:parking_lots_rating/features/tinder_view/domain/usecase/get_new_parkinglots.dart';
 import 'package:parking_lots_rating/features/tinder_view/domain/usecase/save_user_decision.dart';
 
@@ -28,7 +27,7 @@ class TinderViewBloc extends Bloc<TinderViewEvent, TinderViewState> {
 
   void _onParkinglotInitial(
       ParkinglotGetInitial event, Emitter<TinderViewState> emit) async {
-    final res = await _getNewParkinglots(NoParams());
+    final res = await _getNewParkinglots();
     res.fold((l) => emit(ParkinglotFailure(l.message)), (r) {
       currentParkinglots.addAll(r);
       emit(ParkingLotDisplaySuccess(currentParkinglots[currentDisplayedIndex]));
@@ -44,7 +43,7 @@ class TinderViewBloc extends Bloc<TinderViewEvent, TinderViewState> {
     } else {
       currentDisplayedIndex = 0;
       currentParkinglots.clear();
-      final res = await _getNewParkinglots(NoParams());
+      final res = await _getNewParkinglots();
       res.fold((l) => emit(ParkinglotFailure(l.message)), (r) {
         currentParkinglots.addAll(r);
         emit(ParkingLotDisplaySuccess(

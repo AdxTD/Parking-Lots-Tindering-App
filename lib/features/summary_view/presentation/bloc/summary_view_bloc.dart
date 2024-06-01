@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:parking_lots_rating/core/data/models/parking_lot.dart';
-import 'package:parking_lots_rating/core/domain/usecase/usecase.dart';
 import 'package:parking_lots_rating/features/summary_view/domain/usecases/get_labeled_parkinglots.dart';
 
 part 'summary_view_state.dart';
@@ -26,7 +25,7 @@ class SummaryViewBloc extends Bloc<SummaryViewEvent, SummaryViewState> {
     FetchGroupedSortedLots event,
     Emitter<SummaryViewState> emit,
   ) async {
-    final res = await _getLabeledParkinglots(NoParams());
+    final res = await _getLabeledParkinglots();
     res.fold((l) => emit(SummaryError(l.message)), (lots) {
       allLots.addAll(lots);
       emit(SummarySuccess(lots));
