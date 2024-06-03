@@ -88,7 +88,7 @@ void main() {
       ],
       verify: (_) {
         verify(mockGetNewParkinglots()).called(1);
-        verify(mockSaveUserDecision(true)).called(0);
+        verifyNever(mockSaveUserDecision(true));
       },
     );
 
@@ -109,7 +109,7 @@ void main() {
       wait: const Duration(microseconds: 500),
       verify: (_) {
         verify(mockSaveUserDecision(true)).called(1);
-        verify(mockGetNewParkinglots()).called(0);
+        verifyNever(mockGetNewParkinglots());
       },
       expect: () => [
         ParkinglotLoading(),
