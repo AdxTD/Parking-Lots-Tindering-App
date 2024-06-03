@@ -1,16 +1,28 @@
-# parking_lots_rating
+# Parking Lots Tindering App
 
-A new Flutter project.
+Flutter Mobile Application. Applying SOLID Principles and its usage in Clean Architecture.
 
-## Getting Started
+## Project structure
 
-This project is a starting point for a Flutter application.
+Standard clean architecture in Flutter projects, taking into account common data sources and business logic which goes into core feature, and unnecessary data packages in other features which depend on the core, and so on ..
+Testing package has identical packaging and structuring to the feature or unit being tested.
 
-A few resources to get you started if this is your first Flutter project:
+<img width="297" alt="Screenshot 2024-06-03 at 1 46 46 AM" src="https://github.com/AdxTD/Parking-Lots-Tindering-App/assets/98523571/c888fb8e-a5d0-4072-b579-e3b61c52c13e">
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Topics and technologies
+
+* Components of Clean Architecture - Data, Domain & Presentation Layer
+* SOLID Principles
+* Bloc State Management
+* Dependency Injection with get_it
+* graphql_flutter for GraphQL API Client
+* dartz for dart functional programming
+* 
+* Testing packages:
+* =================
+* flutter_test
+* mockito
+* bloc_test
+* mocktail
+
